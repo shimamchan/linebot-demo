@@ -31,7 +31,9 @@ public class FlickrPhoto {
 			} catch (FlickrException e) {
 				throw new RuntimeException();
 			}
-		}).forEach(photo -> ImageUrlList.add(String.format(IMAGE_URL, photo.getFarm(), photo.getServer(), photo.getId(), photo.getSecret())));
+		}).forEach(photo -> ImageUrlList.add(
+				String.format(
+						IMAGE_URL, photo.getFarm(), photo.getServer(), photo.getId(), photo.getSecret())));
 
 		return ImageUrlList;
 	}
