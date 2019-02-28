@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.io.IOException;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -17,29 +15,21 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 @LineMessageHandler
 public class LinebotDemoApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(LinebotDemoApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(LinebotDemoApplication.class, args);
+	}
 
-    @EventMapping
-    public Message handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
-        System.out.println("event: " + event);
-        final String originalMessageText = event.getMessage().getText();
-        String returnMessage = null;
+	@EventMapping
+	public Message handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+		System.out.println("event: " + event);
+		String returnMessage = event.getMessage().getText();
 
-		try {
-			returnMessage = Scrape.getScrapingData(originalMessageText);
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
+		return new TextMessage(returnMessage);
+	}
 
-        return new TextMessage(returnMessage);
-    }
-
-    @EventMapping
-    public void handleDefaultMessageEvent(Event event) {
-        System.out.println("event: " + event);
-    }
+	@EventMapping
+	public void handleDefaultMessageEvent(Event event) {
+		System.out.println("event: " + event);
+	}
 
 }
